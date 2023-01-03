@@ -5,7 +5,7 @@ import '@aws-amplify/ui-react/styles.css'
 function Home() {
   
   const [distance_run_from_storage, set_distance_run_from_storage] = useState(0)
-  const [isChecked, setIsChecked] = useState(true)
+  const [isChecked, setIsChecked] = useState(false)
 
 
   useEffect(() => {
@@ -73,8 +73,8 @@ function Home() {
       
       <Heading>Seb's Running Tracker 2023</Heading>
       
-      <Flex direction='column' alignItems='center'>
-        <Flex as='form' direction='row' alignItems='center' justifyContent='center' onSubmit={updateRan}>
+      <Flex as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
+        <Flex direction='row' alignItems='center'>
           <Text>Absolved Distance</Text>
           <TextField name='distance' size='small' width='30%'></TextField>
         </Flex>
