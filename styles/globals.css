@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    z-index: -100;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    background-color: #0D1A26;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-grow: 1;
+    flex-grow: 1;
+    overflow: auto;
+    height: calc(100% + env(safe-area-inset-top));
+    width: 100%;
+}
+
+.header {
+    position: fixed;
+    z-index: 999;
+}
+
+html {
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    height: calc(100% + env(safe-area-inset-top));
+}
+
+.amplify-flex .amplify-buttongroup {
+    height: calc(100% + env(safe-area-inset-top));
+}
