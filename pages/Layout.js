@@ -13,7 +13,7 @@ function Layout(props) {
 	return (
 
 		<Fragment>
-			<Flex direction='column' gap='0' paddingTop='5rem' paddingBottom='5rem'>
+			<Flex direction='column' gap='0' paddingTop='1rem' paddingBottom='1rem'>
 				<motion.main variants={variants} initial='hidden' animate='enter' exit='exit' transition={{ type: 'linear', duration: 1 }}>
 					{props.children}
 				</motion.main>

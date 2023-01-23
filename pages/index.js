@@ -69,31 +69,27 @@ function Home() {
   }
 
   return (
-    <Flex direction="column" alignItems='center' padding='.2rem' justifyContent='center'>
-      
-      <Heading>Seb's Running Tracker 2023</Heading>
-      
+    <Flex direction="column" alignItems='center' justifyContent='center'>
       <Flex as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
-        <Flex direction='row' alignItems='center'>
-          <Text>Absolved Distance</Text>
+        <Flex direction='row' alignItems='center' justifyContent='center'>
           <TextField name='distance' size='small' width='30%'></TextField>
+          <Text>Miles</Text>
+          <Button variation='primary' size='small' width='30%' type='submit'>Calc</Button>
         </Flex>
-        <Button variation='primary' size='small' width='30%' type='submit'>Submit</Button>
       </Flex>
 
       <Card width='90%'>
         <Flex direction='column' alignItems='center'>
-          <Heading>Date</Heading>
           <Text>Today is {dayOfWeek}, {todayNiceFormat}</Text>
-          <Text>{days_passed} days passed | {days_left} days left</Text>
+          <Text>{days_passed} days passed this year</Text>
+          <Text>I got {days_left} days left to run 1000 miles</Text>
         </Flex>
       </Card>
 
       <Card width='90%'>
         <Flex direction='column' alignItems='center'>
-          <Heading>Distance</Heading>
           <Flex direction='row' alignItems='center'>
-            <Text>Total Distance: {total_distance} | Ran: {distance_run} | Left: {units_left}</Text>
+          <Text>Distance Run: {distance_run} | Distance Left: {units_left}</Text>
           </Flex> 
         </Flex>
         <Flex direction='column' alignItems='center' paddingTop='1rem'>
@@ -115,12 +111,9 @@ function Home() {
       
       <Card width='90%'>
         <Flex direction='column' alignItems='center'>
-          <Heading>Theoretical Projections</Heading>
-
-          <Flex direction='row'>
-            <Text>Linear finish: {linear_finish_formatted}</Text>
-            <Text>Hypothetical Distance: {linear_hypothetical_distance}</Text>
-          </Flex>
+          <Heading>Theoretically ...</Heading>
+          <Text>I'll be done by {linear_finish_formatted}, and would</Text>
+          <Text>run up to {linear_hypothetical_distance} units until Dec 31.</Text>
         </Flex>
       </Card>   
       
