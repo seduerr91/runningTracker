@@ -5,16 +5,15 @@ import '@aws-amplify/ui-react/styles.css'
 function Home() {
   
   const [distance_run_from_storage, set_distance_run_from_storage] = useState(0)  
-  const [goal_from_storage, set_goal_from_storage] = useState()
+  const [goal_from_storage, set_goal_from_storage] = useState(0)
   const [isChecked, setIsChecked] = useState(false)
-
 
   useEffect(() => {
     set_goal_from_storage(window.localStorage.getItem("goal"))
     set_distance_run_from_storage(window.localStorage.getItem("ran"))
   }, [])
 
-  // date related snippets
+  // function dateTimeCalculations () {}
   var today = new Date()
   var dd = String(today.getDate()).padStart(2, '0')
   var yyyy = today.getFullYear()
@@ -33,15 +32,17 @@ function Home() {
 
   let total_distance
   let distance_run
-  let goal
+
   if (isChecked === true) {
-    total_distance = Math.round(goal * 1.609 * 100 ) / 100
+    //  Kilometers
+    total_distance = Math.round(goal_from_storage * 1.609 * 100 ) / 100
     distance_run = Math.round(distance_run_from_storage * 1.609 * 100) / 100
   } else {
-    total_distance = goal_from_storage
+    // Miles
+    total_distance = Math.round(goal_from_storage * 100) / 100
     distance_run = Math.round(distance_run_from_storage * 100) / 100
   }
-  
+  console.log(total_distance)
   const units_left = total_distance - distance_run
   
   const target_distance = Math.round(total_distance / total_days * days_passed * 100) /100
@@ -68,27 +69,20 @@ function Home() {
     const distance = e.target.distance.value
     window.localStorage.setItem("ran", distance)
     
-    console.log('Value: ', e.target.goal.value)
-    console.log('From storage', goal_from_storage)
-    
     let goal
-    if ( e.target.goal.value === '' ) {
-      goal = goal_from_storage
-    } else {
-      goal = e.target.goal.value
-    }
+    if ( e.target.goal.value === '' ) { goal = goal_from_storage } else { goal = e.target.goal.value }
     window.localStorage.setItem("goal", goal)
   }
 
   return (
     <Flex direction="column" alignItems='center' justifyContent='center'>
       {/* Input */}
-      <Flex as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
+      <Flex width='90%' as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
         <Flex direction='row' alignItems='center' justifyContent='center'>
           <TextField name='distance' placeholder='Distance' size='small' width='30%'></TextField>
           <Button variation='primary' size='small' width='30%' type='submit'>Calc</Button>
         </Flex>
-      </Flex>
+      
 
       <Card width='90%'>
         <Flex direction='column' alignItems='center'>
@@ -130,12 +124,10 @@ function Home() {
       </Card>   
 
       <Flex direction='column' justifyContent='center' alignItems='center'>
-          
           <Flex alignItems='center' justifyContent='center'>
             <Text>Change Annual Distance Goal</Text>
             <TextField name='goal' placeholder={ goal_from_storage ||'Yearly goal'} size='small' width='30%'></TextField>
           </Flex>
-      
           <Flex direction='row'>
             <Text>Miles</Text>
               <SwitchField isChecked={isChecked} onChange={(e) => {setIsChecked(e.target.checked)}}/>
@@ -143,7 +135,7 @@ function Home() {
           </Flex>
 
       </Flex>
-
+      </Flex>
   </Flex>
 
   )
