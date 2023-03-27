@@ -4,12 +4,14 @@ import '@aws-amplify/ui-react/styles.css'
 
 function Home() {
   
-  const [distance_run_from_storage, set_distance_run_from_storage] = useState(0)
+  const [distance_run_from_storage, set_distance_run_from_storage] = useState(0)  
+  const [goal_from_storage, set_goal_from_storage] = useState()
   const [isChecked, setIsChecked] = useState(false)
 
 
   useEffect(() => {
-      set_distance_run_from_storage(window.localStorage.getItem("ran"))
+    set_goal_from_storage(window.localStorage.getItem("goal"))
+    set_distance_run_from_storage(window.localStorage.getItem("ran"))
   }, [])
 
   // date related snippets
@@ -23,7 +25,6 @@ function Home() {
   var curMonth = months[today.getMonth()]
   const todayNiceFormat = curMonth + ' ' + dd + ', ' + yyyy
 
-
   const total_days = 365
   const first_of_year = new Date('01/01/2023')
   var days_passed = Math.ceil((today.getTime() - first_of_year.getTime()) / (1000 * 3600 * 24))
@@ -32,17 +33,17 @@ function Home() {
 
   let total_distance
   let distance_run
+  let goal
   if (isChecked === true) {
-    total_distance = Math.round(1000 * 1.609 * 100 ) / 100
+    total_distance = Math.round(goal * 1.609 * 100 ) / 100
     distance_run = Math.round(distance_run_from_storage * 1.609 * 100) / 100
   } else {
-    total_distance = 1000
+    total_distance = goal_from_storage
     distance_run = Math.round(distance_run_from_storage * 100) / 100
   }
   
   const units_left = total_distance - distance_run
   
-
   const target_distance = Math.round(total_distance / total_days * days_passed * 100) /100
   const target_difference = Math.round((distance_run - target_distance) * 100) /100
   const units_per_day_left = Math.round(units_left / days_left * 100) /100
@@ -66,14 +67,25 @@ function Home() {
   function updateRan (e) {
     const distance = e.target.distance.value
     window.localStorage.setItem("ran", distance)
+    
+    console.log('Value: ', e.target.goal.value)
+    console.log('From storage', goal_from_storage)
+    
+    let goal
+    if ( e.target.goal.value === '' ) {
+      goal = goal_from_storage
+    } else {
+      goal = e.target.goal.value
+    }
+    window.localStorage.setItem("goal", goal)
   }
 
   return (
     <Flex direction="column" alignItems='center' justifyContent='center'>
+      {/* Input */}
       <Flex as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
         <Flex direction='row' alignItems='center' justifyContent='center'>
-          <TextField name='distance' size='small' width='30%'></TextField>
-          <Text>Miles</Text>
+          <TextField name='distance' placeholder='Distance' size='small' width='30%'></TextField>
           <Button variation='primary' size='small' width='30%' type='submit'>Calc</Button>
         </Flex>
       </Flex>
@@ -82,7 +94,7 @@ function Home() {
         <Flex direction='column' alignItems='center'>
           <Text>Today is {dayOfWeek}, {todayNiceFormat}</Text>
           <Text>{days_passed} days passed this year</Text>
-          <Text>I got {days_left} days left to run 1000 miles</Text>
+          <Text>I got {days_left} days left to run {goal_from_storage} miles</Text>
         </Flex>
       </Card>
 
@@ -116,12 +128,20 @@ function Home() {
           <Text>run up to {linear_hypothetical_distance} units until Dec 31.</Text>
         </Flex>
       </Card>   
+
+      <Flex direction='column' justifyContent='center' alignItems='center'>
+          
+          <Flex alignItems='center' justifyContent='center'>
+            <Text>Change Annual Distance Goal</Text>
+            <TextField name='goal' placeholder={ goal_from_storage ||'Yearly goal'} size='small' width='30%'></TextField>
+          </Flex>
       
-      <Flex direction='row'>
-        <Text>Miles</Text>
-        <SwitchField isChecked={isChecked} onChange={(e) => {setIsChecked(e.target.checked)}}
-        />
-        <Text>Kilometers</Text>
+          <Flex direction='row'>
+            <Text>Miles</Text>
+              <SwitchField isChecked={isChecked} onChange={(e) => {setIsChecked(e.target.checked)}}/>
+            <Text>Kilometers</Text>
+          </Flex>
+
       </Flex>
 
   </Flex>
