@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "RunSeb",
-    "short_name": "RunSeb",
-    "description": "Running Tracker by Seb.",
+    "name": "RunSno",
+    "short_name": "RunSno",
+    "description": "Running Tracker by Seb & Cam.",
     "icons": [
         {
             "src": "/favicon-16x16.pngg",
