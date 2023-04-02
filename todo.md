@@ -12,3 +12,5 @@
 
 - [x] Change annual running distance goal (As a end user, I want to edit my annual running distance goal so that I can run more than Seb.)
 - [x] We wanna change the app logo to something without SEB in it.
+
+- [x] Cam cloned repository, made a branch, and we're gonna refactor! 
