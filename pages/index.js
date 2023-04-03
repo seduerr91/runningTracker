@@ -78,10 +78,11 @@ function Home() {
     <Flex direction="column" alignItems='center' justifyContent='center'>
       {/* Input */}
       <Flex width='90%' as='form' alignItems='center' direction='column' justifyContent='center' onSubmit={updateRan}>
-        <Flex direction='row' alignItems='center' justifyContent='center'>
-          <TextField name='distance' placeholder='Distance' size='small' width='30%'></TextField>
-          <Button variation='primary' size='small' width='30%' type='submit'>Calc</Button>
-        </Flex>
+      <Flex alignItems='center' justifyContent='center'>
+            <Text>Change Annual Distance Goal</Text>
+            <TextField name='goal' placeholder={ goal_from_storage ||'Yearly goal'} size='small' width='30%'></TextField>
+          </Flex>
+        
       
 
       <Card width='90%'>
@@ -123,11 +124,12 @@ function Home() {
         </Flex>
       </Card>   
 
+      <Flex direction='row' alignItems='center' justifyContent='flex-start'>
+          <TextField name='distance' placeholder='Distance' size='small' width='30%'></TextField>
+          <Button variation='primary' size='small' width='30%' type='submit'>Calc</Button>
+        </Flex>
+
       <Flex direction='column' justifyContent='center' alignItems='center'>
-          <Flex alignItems='center' justifyContent='center'>
-            <Text>Change Annual Distance Goal</Text>
-            <TextField name='goal' placeholder={ goal_from_storage ||'Yearly goal'} size='small' width='30%'></TextField>
-          </Flex>
           <Flex direction='row'>
             <Text>Miles</Text>
               <SwitchField isChecked={isChecked} onChange={(e) => {setIsChecked(e.target.checked)}}/>
