@@ -1,12 +1,10 @@
-# JobAce
+# RunSno
 
-## General Information
+## Intro
 
-This is a simple running tracker. I use it to track my running in 2023.
+This is a simple running tracker. We use it to track our running in 2023 in the Snoqualmie area.
 
 [Test it](http://tiny.cc/runningtracker)
-
-This small NextJS webapp is hosted on AWS Amplify.
 
 ## How to use
 
